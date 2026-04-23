@@ -1,8 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#define UP 72
+#define DOWN 80
 int main(){
 	int pointer = 0;
+	char in;
+	while(1){
+	
 	printf("  ____  ____                _               \n");
     printf(" / ___|/ ___|_ __ __ _ _ __ | |__   ___ _ __ \n");
     printf("| |     |  _| '__/ _` | '_ \\| '_ \\ / _ \\ '__|\n");
@@ -58,5 +63,13 @@ int main(){
     if(pointer == 5){
     	printf("]");
 	}
-    getch();
+    in = _getch();
+    if(in == UP){
+    	pointer--;
+	}
+	if(in == DOWN){
+		pointer++;
+	}
+	system("cls");
+}
 }
