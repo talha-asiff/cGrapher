@@ -5,30 +5,30 @@
 #define DOWN 80
 #define select 13
 
-int size = 0;
+int size = 1;
 int * x = NULL;
 int * y = NULL;
 char padd[50] = "";
 void graph(){
-	x = malloc(size * sizeof(int));
-	y = malloc(size * sizeof(int));
+	system("cls");
+	int a, b;
+	x = (int*)malloc(size * sizeof(int));
+	y = (int*)malloc(size * sizeof(int));
 	int i, j;
 	char ch = 'A';
 	int count = 0;
 	char in;
-	start:
-		count++;
-		padd[count-1] = ch;
-		system("cls");
-		printf("50x50\n");
-		for(i = -26; i <= 26; i++){
-			for(j = -26; j<=26; j++){
+	while(1){
+	//	system("cls");
+		printf("Point : %c\n", ch);
+		for(i = 26; i >= -26; i--){
+			for(j = -26; j<= 26; j++){
 				if(i==0 || j==0){
 					printf("#");
 				}
 				else{
-					if(i==x[count-1] && j==y[count-1]){
-						printf(ch);
+					if(i==b && j==a){
+						printf("#");
 					}
 					else{
 						printf(".");
@@ -40,9 +40,9 @@ void graph(){
 		i = 0;
 		j = 0;
 		printf("Enter 0 to add new point or enter any character to exit\n");
-		in = getch();
+		in = _getch();
 		if(in == '0'){
-			int a, b;
+			
 			x = realloc(x, (size++)*sizeof(int));
 			y = realloc(y, (size++)*sizeof(int));
 			printf("Enter Points: \n");
@@ -50,14 +50,18 @@ void graph(){
 			scanf("%d", &a);
 			printf("y : ");
 			scanf("%d", &b);
-			x[count-1] = a;
-			y[count-1] = b;
-			goto start;
+			*x = a;
+			*y = b;
+			system("cls");
+			padd[count] = ch;
+			ch++;
+			count++;
 		}
 		else{
 			system("cls");
+			return;
 		}
-	
+	}
 }
 double distance(){
 	
@@ -86,6 +90,7 @@ int main(){
 	    printf("                      |_|                    \n");
 	    printf("\t Use arrow keys to navigate");
 	    printf("\n");
+	    printf("Points saved : %s\n", padd==""?"NO DATA":padd);
     	if(pointer == 0){
     		printf("[");
 		}
