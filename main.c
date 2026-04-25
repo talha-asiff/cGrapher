@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<string.h>
 #define UP 72
 #define DOWN 80
 #define select 13
@@ -39,6 +40,7 @@ void graph(){
 		}
 		i = 0;
 		j = 0;
+		
 		printf("Enter 0 to add new point or enter any character to exit\n");
 		in = _getch();
 		if(in == '0'){
@@ -50,8 +52,8 @@ void graph(){
 			scanf("%d", &a);
 			printf("y : ");
 			scanf("%d", &b);
-			*x = a;
-			*y = b;
+			x[count] = a;
+			y[count] = b;
 			system("cls");
 			padd[count] = ch;
 			ch++;
@@ -59,11 +61,35 @@ void graph(){
 		}
 		else{
 			system("cls");
+			break;
 			return;
 		}
 	}
 }
-double distance(){
+void distance(){
+	
+	system("cls");
+	char start, end;
+	int a1 = 0;
+	int b1 = 0;
+	int i;
+	int found = 0;
+	printf("Select start point (Enter O to measure from orign) : ");
+	scanf("%c", &start);
+	for(i = 0; i <= strlen(padd)-1 ; i++){
+		if(padd[i]==start){
+			a1 = x[i];
+			b1 = y[i];
+			found = 1;
+		}
+	}
+	if(found){
+		printf("FOUND!");
+	}
+	printf("%d %d", a1, b1);
+	getch();
+	system("cls");
+	return;
 	
 }
 double angle(){
@@ -80,8 +106,8 @@ int main(){
 	int pointer = 0;
 	char in;
 	int selected = 0;
+	start:
 	while(1){
-		start:
 		printf("  ____  ____                _               \n");
     	printf(" / ___|/ ___|_ __ __ _ _ __ | |__   ___ _ __ \n");
 	    printf("| |     |  _| '__/ _` | '_ \\| '_ \\ / _ \\ '__|\n");
@@ -175,10 +201,27 @@ int main(){
 	}
 	if(0){
 		o1: graph();
-		o2: distance();
-		o3: angle();
-		o4: slope();
+		pointer = 0;
+		selected = 0;
 		goto start;
+		
+		o2: distance();
+		pointer = 0;
+		selected = 0;
+		goto start;
+		
+		o3: angle();
+		pointer = 0;
+		selected = 0;
+		goto start;
+		
+		o4: slope();
+		pointer = 0;
+		selected = 0;
+		goto start;
+		
 	}
+	free(x);
+	free(y);
 	
 }
