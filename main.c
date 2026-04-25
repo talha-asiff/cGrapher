@@ -6,6 +6,7 @@
 #define UP 72
 #define DOWN 80
 #define select 13
+#define PI 3.14159
 int size = 1;		
 int *x = NULL;		
 int *y = NULL;		
@@ -82,6 +83,9 @@ void distance()
 	top:
 	printf("Select start point (Enter O to measure from orign) : \n");
 	start = _getch();
+	if(start > 90){
+		start = start - 32;
+	}
 	for (i = 0; i <= strlen(padd) - 1; i++)
 	{
 		if (padd[i] == start)
@@ -106,6 +110,9 @@ void distance()
 	found = 0;
 	printf("Select end point : \n");
 	end = _getch();
+	if(end > 90){
+		end = end - 32;
+	}
 	for (i = 0; i <= strlen(padd) - 1; i++)
 	{
 		if (padd[i] == end)
@@ -128,14 +135,100 @@ void distance()
 	return;
 
 }
-double angle()
-{
+void angle(){
+	system("cls");
+	char point;
+	int a = 0;
+	int b = 0;
+	int found = 0;
+	int i;
+	begin:
+	printf("Enter a point to find its angle from origin : \n");
+	point = _getch();
+	if(point > 90){
+		point = point - 32;
+	}
+	for (i = 0; i <= strlen(padd) - 1; i++)
+	{
+		if (padd[i] == point)
+		{
+			a = x[i];
+			b  = y[i];
+			found = 1;
+		}
+	}
+	if (!found)
+	{
+		printf("Point not found!\n");
+		goto begin;
+	}
+	double ang = atan2(b, a) * 180 / PI;
+	printf("Angle of %c from origin is : %lf degrees\n Enter any character to return to menu", point, ang);
+	_getch();
+	system("cls");
+	return;
 }
-double slope()
+void slope()
 {
+	system("cls");
+	char start, end;
+	int a1 = 0;
+	int b1 = 0;
+	int a2 = 0;
+	int b2 = 0;
+	int i;
+	int found = 0;
+	top:
+	printf("Select start point : \n");
+	start = _getch();
+	if(start > 90){
+		start = start - 32;
+	}
+	for (i = 0; i <= strlen(padd) - 1; i++)
+	{
+		if (padd[i] == start)
+		{
+			a1 = x[i];
+			b1 = y[i];
+			found = 1;
+		}
+	}
+	i = 0;
+	if (!found)
+	{
+		printf("Point not found!\n");
+		goto top;
+	}
+	found = 0;
+	printf("Select end point : \n");
+	end = _getch();
+	if(end > 90){
+		end = end - 32;
+	}
+	for (i = 0; i <= strlen(padd) - 1; i++)
+	{
+		if (padd[i] == end)
+		{
+			a2 = x[i];
+			b2 = y[i];
+			found = 1;
+		}
+	}
+	if (!found)
+	{
+		printf("Point not found!\n");
+		goto top;
+	}
+	system("cls");
+	double m = (b2-b1)/(a2-a1);
+	printf("Slope of line between %c and %c is : %lf\n Enter any character to return to menu", start, end, m);
+	_getch();
+	system("cls");
+	return;
 }
 void export()
 {
+	
 }
 
 int main()
