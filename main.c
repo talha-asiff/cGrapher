@@ -228,7 +228,46 @@ void slope()
 }
 void export()
 {
-	
+	system("cls");
+	int limit = strlen(padd)-1;
+	FILE *report = NULL;
+	report = fopen("report.html", "w");
+	if(report == NULL){
+		printf("An unexpected error occured\n");
+		_getch();
+		return;
+	}
+	fprintf(report,"<html>\n <style> html {background-color : black; } h1 {color : white; font-family: arial;} p {color : white; font-family:ariel;}</style>");
+	fprintf(report, "<hr><h1 style=\" background-color:red; color:white;\">cGrapher - Report<hr>\n");
+	fprintf(report, "<hr><h1>Points :<hr></h1>\n");
+	for(int i = 0; i <= limit; i++){
+		fprintf(report, "<p>Point %c : (%d , %d) <br> </p>\n",padd[i], x[i], y[i]);
+	}
+	fprintf(report, "<hr><h1>Distance :<hr></h1>\n");
+	for(int i = 0; i <= limit; i++){
+		int end = i + 1;
+		if(end > limit){
+			end = 0;
+		}
+		fprintf(report, "<p>Point %c and Point %c: %f <br> </p>\n",padd[i], padd[end], sqrt(pow(x[end] - x[i], 2) + pow(y[end] - y[i], 2)));
+	}
+	fprintf(report, "<hr><h1>Angle from orign :<hr></h1>\n");
+	for(int i = 0; i <= limit; i++){
+		fprintf(report, "<p>Point %c : %f <br> </p>\n",padd[i], atan2(y[i], x[i])*180/PI);
+	}
+	fprintf(report, "<hr><h1>Slope :<hr></h1>\n");
+	for(int i = 0; i <= limit; i++){
+		int end = i + 1;
+		if(end > limit){
+			end = 0;
+		}
+		fprintf(report, "<p>Point %c and Point %c: %f <br> </p>\n",padd[i], padd[end], (y[end] - y[i])/(x[end] - x[i]));
+	}
+	fprintf(report,"</html>");
+	fclose(report);
+	printf("HTML file generated successfully!");
+	_getch();
+	system("cls");
 }
 
 int main()
@@ -348,6 +387,9 @@ start:
 			{
 				goto o4;
 			}
+			else if(pointer == 4){
+				goto o5;
+			}
 			else if (pointer == 5)
 			{
 				break;
@@ -379,6 +421,12 @@ start:
 		pointer = 0;
 		selected = 0;
 		goto start;
+	o5:
+		export();
+		pointer = 0;
+		selected = 0;
+		goto start;
+		
 	}
 	free(x);
 	free(y);
